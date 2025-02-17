@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Explora el Mundo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .contact-form input[type="submit"] {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+         <div class="navigation-buttons">
+        <a href="index.html" class="btn btn-primary">Inicio</a>
+        <a href="reservaciones.html" class="btn btn-success">Reservaciones</a>
+        <a href="destinos.html" class="btn btn-info">Destinos</a>
+        <a href="administrador.html" class="btn btn-warning">Administrador</a>
+    </div>
+        <h1>Contacto</h1>
+    </header>
+    <div class="container">
+
+        <h2>Envíanos un mensaje</h2>
+        <form action="enviar_mensaje.php" method="post" class="contact-form">
+            <input type="text" name="nombre" placeholder="Nombre completo" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <textarea name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>

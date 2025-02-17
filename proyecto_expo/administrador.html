@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - Explora el Mundo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Administrador de Destinos</h1>
+    </header>
+    <div class="container">
+        <h2>Agregar / Modificar Destino</h2>
+        <form id="destination-form">
+            <div class="form-group">
+                <label>Nombre del destino</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>URL de la imagen</label>
+                <input type="text" id="image" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea id="description" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="index.html" class="btn btn-primary">Inicio</a>
+
+        </form>
+        
+        <h2 class="mt-4">Destinos Actuales</h2>
+        <ul id="destination-list" class="list-group"></ul>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("destination-form");
+            const list = document.getElementById("destination-list");
+            
+            function loadDestinations() {
+                const destinations = JSON.parse(localStorage.getItem("destinations")) || [];
+                list.innerHTML = "";
+                destinations.forEach((dest, index) => {
+                    const li = document.createElement("li");
+                    li.classList.add("list-group-item");
+                    li.innerHTML = `<strong>${dest.name}</strong>
+                        <button class='btn btn-danger btn-sm float-right' onclick='deleteDestination(${index})'>Eliminar</button>`;
+                    list.appendChild(li);
+                });
+            }
+            
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                const name = document.getElementById("name").value;
+                const image = document.getElementById("image").value;
+                const description = document.getElementById("description").value;
+                
+                let destinations = JSON.parse(localStorage.getItem("destinations")) || [];
+                const existingIndex = destinations.findIndex(dest => dest.name === name);
+                if (existingIndex >= 0) {
+                    destinations[existingIndex] = { name, image, description };
+                } else {
+                    destinations.push({ name, image, description });
+                }
+                
+                localStorage.setItem("destinations", JSON.stringify(destinations));
+                form.reset();
+                loadDestinations();
+            });
+            
+            window.deleteDestination = function (index) {
+                let destinations = JSON.parse(localStorage.getItem("destinations")) || [];
+                destinations.splice(index, 1);
+                localStorage.setItem("destinations", JSON.stringify(destinations));
+                loadDestinations();
+            };
+            
+            loadDestinations();
+        });
+    </script>
+</body>
+</html>

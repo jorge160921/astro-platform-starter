@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservaciones - Explora el Mundo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .reservation-form input, .reservation-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .reservation-form button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .navigation-buttons a {
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+            margin: 5px;
+        }
+        .btn-home { background-color: #28a745; color: white; }
+        .btn-destinos { background-color: #17a2b8; color: white; }
+        .btn-contacto { background-color: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reservaciones</h1>
+    </header>
+    <div class="navigation-buttons">
+        <a href="index.html" class="btn-home">Inicio</a>
+        <a href="destinos.html" class="btn-destinos">Destinos</a>
+        <a href="contacto.html" class="btn-contacto">Contacto</a>
+    </div>
+    <div class="container">
+        <h2>Reserva tu viaje</h2>
+        <form class="reservation-form" onsubmit="mostrarMensaje(event)">
+            <input type="text" name="nombre" placeholder="Nombre completo" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="tel" name="telefono" placeholder="Teléfono" required>
+            <select name="destino" id="destinoSelect" required>
+                <option value="">Selecciona un destino</option>
+            </select>
+            <input type="date" name="fecha" required>
+            <button type="submit">Reservar</button>
+        </form>
+    </div>
+
+    <script>
+    function cargarDestinos() {
+        let destinos = JSON.parse(localStorage.getItem("destinations")) || [];
+        let selectDestino = document.getElementById("destinoSelect");
+
+        destinos.forEach(destino => {
+            let option = document.createElement("option");
+            option.value = destino.name.toLowerCase().replace(/\s+/g, "-");
+            option.textContent = destino.name;
+            selectDestino.appendChild(option);
+        });
+    }
+
+    function mostrarMensaje(event) {
+        event.preventDefault();
+        alert("Reservación exitosa");
+        window.location.href = "index.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarDestinos);
+</script>
+
+</body>
+</html>

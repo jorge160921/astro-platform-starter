@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explora el Mundo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .navigation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .navigation a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .travel-image {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+        .login-form {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .login-form input[type="text"], 
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .login-form input[type="submit"], .logout-btn {
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .logout-btn {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Explora el Mundo</h1>
+    </header>
+    <div class="container">
+        <div class="navigation">
+            <a href="index.html">Inicio</a>
+            <a href="destinos.html" id="destinos">Destinos</a>
+            <a href="reservaciones.html" id="reservaciones">Reservaciones</a>
+            <a href="contacto.html" id="contacto">Contacto</a>
+            <a href="administrador.html" id="admin" class="btn btn-warning" style="display: none;">Administrador</a>
+        </div>
+
+        <div id="inicio" class="welcome-message">
+            <h2>Bienvenidos a Explora el Mundo</h2>
+            <p>Descubre los destinos más increíbles y vive experiencias inolvidables en tus viajes. Encuentra ofertas exclusivas y planifica tu próxima aventura con nosotros.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQz6U1tB5iHhdMElk-2f2AxZ2-aaKQxhc3g&s" alt="Imagen de viaje" class="travel-image">
+        </div>
+
+        <div id="login" class="login-form">
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <input type="text" name="usuario" placeholder="Usuario" required><br>
+                <input type="password" name="contrasena" placeholder="Contraseña" required><br>
+                <input type="submit" class="btn btn-primary" value="Ingresar">
+            </form>
+            <button id="logout" class="logout-btn" style="display: none;">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        function verificarSesion() {
+            let usuarioLogueado = localStorage.getItem("usuario");
+
+            if (usuarioLogueado) {
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("logout").style.display = "inline-block";
+                document.getElementById("admin").style.display = "inline-block"; // Mostrar botón admin
+            } else {
+                document.getElementById("destinos").addEventListener("click", function(event) {
+                    event.preventDefault();
+                    alert("Debes iniciar sesión para acceder a esta sección.");
+                });
+
+                document.getElementById("reservaciones").addEventListener("click", function(event) {
+                    event.preventDefault();
+                    alert("Debes iniciar sesión para acceder a esta sección.");
+                });
+
+                document.getElementById("contacto").addEventListener("click", function(event) {
+                    event.preventDefault();
+                    alert("Debes iniciar sesión para acceder a esta sección.");
+                });
+            }
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let usuario = document.querySelector("input[name='usuario']").value;
+
+            if (usuario) {
+                localStorage.setItem("usuario", usuario);
+                alert("Inicio de sesión exitoso. Ahora puedes acceder a todas las secciones.");
+                window.location.reload();
+            }
+        });
+
+        document.getElementById("logout").addEventListener("click", function() {
+            localStorage.removeItem("usuario");
+            alert("Sesión cerrada.");
+            window.location.reload();
+        });
+
+        verificarSesion();
+    </script>
+</body>
+</html>

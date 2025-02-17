@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinos - Explora el Mundo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .destination {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .destination img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Destinos</h1>
+    </header>
+    <div class="container" id="destinations-container">
+        <!-- Destinos cargados dinámicamente -->
+    </div>
+    <div class="navigation-buttons">
+        <a href="index.html" class="btn btn-primary">Inicio</a>
+        <a href="reservaciones.html" class="btn btn-success">Reservaciones</a>
+        <a href="contacto.html" class="btn btn-info">Contacto</a>
+        <a href="administrador.html" class="btn btn-warning">Administrador</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById("destinations-container");
+            function loadDestinations() {
+                const destinations = JSON.parse(localStorage.getItem("destinations")) || [];
+                container.innerHTML = "";
+                destinations.forEach(dest => {
+                    const div = document.createElement("div");
+                    div.classList.add("destination");
+                    div.innerHTML = `
+                        <h2>${dest.name}</h2>
+                        <img src="${dest.image}" alt="${dest.name}">
+                        <p>${dest.description}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            loadDestinations();
+        });
+    </script>
+</body>
+</html>
